@@ -1,0 +1,14 @@
+{% extends 'pracharead_app/base.html' %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+{% if output %}
+    <h2>OCR Output:</h2>
+    <p>{{ output }}</p>
+{% endif %}
+{% endblock %}

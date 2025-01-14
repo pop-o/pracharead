@@ -1,0 +1,580 @@
+:root {
+  --main-text: #ffffff;
+  --nav-text: #ffffff;
+  --card-color: linear-gradient(90deg, #2a2a3e, #1a1a2e);
+  --bg-button: #ff7997;
+  --red: #ff7997;
+  --container-text: #333333;
+  --background: #1a1a2e;
+  --btn-text: #ffffff;
+  --form-color: linear-gradient(90deg, #2a2a3e, #2a2a3e);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.html{
+  scroll-behavior: smooth;
+}
+body {
+  background-color: var(--background);
+  color: var(--main-text);
+}
+
+header {
+  padding: 20px;
+  height: 10vh;
+}
+
+.logo {
+  color: var(--main-text);
+}
+
+.logo img,
+.content img {
+  width: 200px;
+  height: 30px;
+  margin: 8px;
+}
+
+.header {
+  width: 100%;
+  justify-content: space-between;
+}
+
+nav ul {
+  list-style: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav ul li {
+  padding: 0px 10px 0px 10px;
+  font-size: 17px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--nav-text);
+  transition: 0.5s;
+  position: relative;
+}
+.navtext ul li a::after{
+    content: '';
+    width: 0;
+    height: 3px;
+    background: var(--red);
+    position: absolute;
+    left: 0px;
+    bottom: -6px;
+    transition: 0.5s;
+}
+.navtext ul li a:hover::after{
+    width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbtn {
+  color: var(--btn-text);
+  background-color: var(--bg-button);
+  padding: 8px;
+  border: 1px solid var(--main-text);
+  border-radius: 20px;
+  width: 93px;
+}
+
+.container {
+  min-height: calc(100vh - 13vh);
+  background-color: var(--container-color);
+}
+.tab{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px 40px;
+}
+
+.links{
+  margin-right: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: 0.5px;
+}
+.links::after{
+  content: '';
+  width: 0;
+  height: 3px;
+  background: var(--red);
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+}
+.links.activelink::after{
+  width: 50%;
+}
+
+.contents ul li{
+  list-style: none;
+  margin: 10px 0;
+}
+.contents ul li span{
+  color: var(--red);
+}
+.contents{
+  display: none;
+}
+.contents.activecontent{
+  display: block;
+}
+.text {
+  margin: 4px;
+}
+
+.text .typing {
+  height: 70px;
+}
+
+.text .typing li {
+  list-style: none;
+  font-size: 40px;
+  font-weight: 100px;
+}
+
+.text .typing li span {
+  color: var(--main-text);
+  position: relative;
+  font-family: "Sofadi One", system-ui;
+}
+
+.text .typing li span::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  background: var(--background);
+  border-left: 2px solid var(--main-text);
+  animation: typing 2s steps(23, end) forwards infinite,
+    pauseBlink 2s step-end infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+    0% {
+        left: 0;
+    }
+    70% {
+        left: 100%; 
+    }
+    100% {
+        left: 100%; 
+    }
+  }
+/* Optional blinking cursor after typing finishes */
+@keyframes pauseBlink {
+    90% {
+        border-color: transparent;
+    }
+    100% {
+        border-color: black;
+    }
+}
+
+
+.container{
+    padding: 20px;
+}
+.uploadbtn {
+    color: white;
+    width: 80vmin;
+    height: 37px;
+    background: var(--bg-button);
+    border-radius: 20px;
+    margin: 10px;
+  }
+  
+
+
+.container {
+  padding: 20px;
+}
+
+.uploadbtn {
+    display: block; 
+    color: var(--btn-text);
+    text-align: center; 
+    padding: 10px 20px;
+    background-color: var(--bg-button); 
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+    margin: 10px auto; 
+    width: 80vmin; 
+}
+
+  
+  .uploadbtn:hover {
+    transform: scale(1.01);
+  }
+  
+  
+  .upload-input {
+    display: none;
+  }
+  
+  #file-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--main-text)
+  }
+  
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+    background-color: var(--card-color);
+    width: 85vmin;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 10px 25px 30px rgba(30, 30, 200, 0.3);
+    transition: transform 0.3s ease; 
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+.slider {
+  width: 26vmin;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.slider img {
+  width: 26vmin;
+  flex-shrink: 0;
+}
+
+#about{
+  /* padding: 20px 0px; */
+  margin: 70px 28px;  
+}
+.row{
+  display: flex;  
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.aboutleft{
+  flex-basis: 35%;
+}
+.aboutleft img{
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid white;
+  height: 60vh;
+  transition: 0.3s ease;
+}
+.aboutleft img:hover{
+  transform: scale(1.01);
+}
+.aboutright{
+  flex-basis: 60%;
+}
+.aboutright h1{
+  font-size: 60px;
+  margin-bottom: 20px;;
+  color: var(--red);
+}
+
+#contact{
+  padding: 80px 0px;
+  margin: 120px 28px;  
+}
+.table h1{
+  font-size: 60px;
+}
+.table {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.col1 h1{
+  margin-bottom: 20px;
+  color: var(--red);
+}
+.col1 p{
+  margin-bottom: 16px;
+}
+.col1 p i{
+  margin-right: 10px;
+  color: var(--red);
+}
+.socials{
+  margin: 20px;
+}
+.socials i{
+  font-size: 25px;
+  margin-right: 10px;
+  color: var(--red);
+  transition: 0.5s;
+}
+.socials i:hover{
+  color: var(--text-color );
+  transform: translateY(-5px);
+}
+.col2 form{
+  width: 100%;
+}
+
+form input,form textarea{
+  width: 100%;
+  border: 0px;
+  outline: none;
+  background: var(--form-color);
+  padding: 15px;
+  margin: 15px 0;
+  color: var(--text-color);
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+
+.btn{
+  border-radius: 8px;
+  padding: 10px;
+  position: center;
+  cursor: pointer;
+  background: var(--red);
+  border: 0px solid var(--red);
+  color: var(--text-color);
+  width: 100%;
+
+}
+
+footer {
+  border-top: 2px solid var(--main-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+}
+
+.content{
+    width: 100%;
+}
+
+.notes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+button{
+    cursor: pointer;
+}
+
+.content {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.content .notes p {
+  text-align: center;
+  color: var(--main-text);
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.class {
+  text-align: center;
+}
+
+.icons a {
+  text-decoration: none;
+  padding: 10px;
+  font-size: 26px;
+  color: var(--main-text);
+}
+
+.hidden {
+  display: none;
+}
+
+.signup-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 80vmin;
+  height: 400px;
+  background-color: var(--background); 
+  border: 1px solid #8a2be2;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.signup-card h2 {
+  color: var(--main-text); 
+  margin: 13px 0;
+}
+
+.signup-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-card input,
+.signup-card button {
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.signup-card button {
+  background-color: var(--bg-button); 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5 ease;
+
+}
+.submit{
+  margin-bottom: 12px;
+}
+
+.signup-card button:hover {
+  transform: scale(1.01);
+}
+.access button{
+  margin: 0 5px;
+}
+
+@media screen and (max-width: 900px) {
+  header {
+    height: 8vh;
+  }
+  .logo img,
+  .content img {
+    width: 100px;
+    height: 20px;
+    margin: 1px;
+  }
+
+  .signup-card {
+    width: 90%; 
+    padding: 15px;
+  }
+  .signup-card{
+    position: fixed;
+  }
+
+  nav ul li {
+    padding: 0px 5px 0px 5px;
+    font-size: 14px;
+    margin-left: 6px;
+  }
+  .navbtn {
+    padding: 3px;
+    border: 1px solid var(--main-text);
+    border-radius: 20px;
+    width: 75px;
+  }
+
+  .text .typing li {
+    list-style: none;
+    font-size: 30px;
+    font-weight: 80px;
+  }
+  .text .typing {
+    height: 50px;
+  }
+
+
+  .card {
+    justify-content: center;
+    height: 270px
+  }
+  #about{
+    /* padding: 20px 0px; */
+    margin: -145px 28px;  
+  }
+  .aboutleft img{
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid white;
+    height: 20vh;
+    transition: 0.3s ease;
+  }
+  .table{
+    flex-direction: column; 
+    align-items: center;
+}
+
+.col1, .col2 {
+    flex-basis: 100%; 
+    text-align: center; 
+}
+
+.col1 p, .socials {
+    justify-content: center; 
+}
+
+.socials i {
+    font-size: 20px; 
+}
+
+form input, form textarea {
+    width: 100%; 
+}
+
+form .btn {
+    width: 100%; 
+    text-align: center;
+}
+
+  footer{
+    height: 12vh;
+  }
+  .content{
+    width: 100%
+  }
+  
+}
+
+.icons a{
+    text-decoration: none;
+    padding: 8px;
+    font-size: 20px;
+    color: var(--main-text);
+}

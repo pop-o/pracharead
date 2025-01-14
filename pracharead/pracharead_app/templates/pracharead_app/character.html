@@ -1,0 +1,25 @@
+{% load static %}
+<div class="contents" id="character">
+    <div class="container2 flex">
+        <div class="card">
+            <h1>Character Conversion</h1>
+            <label class="uploadbtn" for="image-upload-character">Choose Character Image</label>
+            <input id="image-upload-character" class="upload-input" type="file" accept="image/*"/>
+            <p id="file-name-character">No file selected!</p>
+
+            <div class="slider">
+                <img src="{%static 'images/char_image.png'%}" alt="" />
+                <img src="{%static 'images/char_image2.png'%}" alt="" />
+                <img src="{%static 'images/char_image3.png'%}" alt="" />
+                <img src="{%static 'images/char_image4.png'%}" alt="" />
+            </div>
+            <label class="uploadbtn" onclick="translateCharacter()">Translate</label>
+
+            <!-- Output element -->
+            <div id="character-output" class="output">
+                <h2>OCR Output:</h2>
+                <p id="character-output-text">No output yet.</p>
+            </div>
+        </div>
+    </div>
+</div>

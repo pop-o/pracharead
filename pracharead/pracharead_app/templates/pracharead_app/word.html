@@ -1,0 +1,25 @@
+{% load static %}
+<div class="contents activecontent" id="word">
+    <div class="container2 flex">
+        <div class="card">
+            <h1>Word Conversion</h1>
+            <label class="uploadbtn" for="image-upload-word">Choose Word Image</label>
+            <input id="image-upload-word" class="upload-input" type="file" accept="image/*"/>
+            <p id="file-name-word">No file selected!</p>
+            
+            <div class="slider">
+                <img src="{%static 'images/word_image.png'%}" alt="" />
+                <img src="{%static 'images/word_image2.png'%}" alt="" />
+                <img src="{%static 'images/word_image3.png'%}" alt="" />
+                <img src="{%static 'images/word_image4.png'%}" alt="" />
+            </div>
+            <label class="uploadbtn" onclick="translateWord()">Translate</label>
+            
+            <!-- Output element -->
+            <div id="word-output" class="output">
+                <h2>OCR Output:</h2>
+                <p id="word-output-text">No output yet.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrachaRead</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&family=Sofadi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans+Newa&family=Noto+Serif+Devanagari:wght@100..900&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Newa', 'Arial', sans-serif;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/c6a0cef992.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header flex">
+        <div class="logo">
+          <img src="{% static 'images/Logo.png' %}" alt="Logo" />
+        </div>
+        <nav>
+          <div class="navtext">
+            <ul>
+              <li><a href="#header">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><button class="navbtn" id = "signupbtn">Login</button></li>
+            </ul>
+
+          </div>
+        </nav>
+      </div>
+    </header>
+    
+    <main>
+      <div class="container">
+        <div class="text flex">
+          <ul class="typing">
+            <li><span class>Upload The Image</span></li>
+          </ul>
+        </div>
+        <div class="tab">
+          <p class="links activelink" onclick="opentab('word')">Word</p>
+          <p class="links" onclick="opentab('character')">Character</p>
+      </div>
+      <div id="content">
+        {% include 'pracharead_app/word.html' %}
+        {% include 'pracharead_app/character.html' %}
+    </div>
+
+      </div>
+
+      <div id="about">
+        <div class="container2">
+            <div class="row">
+                <div class="aboutleft">
+                    <img src="{%static 'images/user.png'%}">
+                </div>
+                <div class="aboutright">
+                    <h1 class = "red">About</h1>
+                    <p>Pracharead is a site that understands Newari Texts </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact">
+      <div class="inside">
+          <div class="table">
+              <div class="col1">
+                  <h1 class = "red">Contact Us</h1>
+                  <p><i class="fa-solid fa-magnifying-glass"></i>pradyumnarajbhandari1@gmail.com</p>
+                  <p><i class="fa-solid fa-phone"></i>9808270609</p>
+                  <div class="socials">
+                      <i class="fa-brands fa-facebook"></i>
+                      <i class="fa-brands fa-instagram"></i>
+                      <i class="fa-brands fa-twitter"></i>
+                  </div>
+              </div>
+              <div class="col2">
+                  <form method="POST" name = "submit-to-google-sheet">
+                      <input type="text" name = "Name" placeholder="Your Name" required>
+                      <input type="text" name = "Email" placeholder = "Your Email" required>
+                      <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                      <button type = "submit" class = "btn">Submit</button>
+                  </form>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+  </div>
+
+    </main>
+
+    <footer>
+      <div class="content">
+        <div class="notes">
+          <img src="{% static 'images/Logo.png'%}" alt="Logo" />
+          <p>Copyright &copy 2024 PrachaRead</p>
+          <div class="socials">
+            <div class="icons">
+              <a href="#" class="fa fa-facebook"></a>
+              <a href="#" class="fa fa-twitter"></a>
+              <a href="#" class="fa fa-instagram"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </footer>
+    <div id="signupCard" class="signup-card hidden">
+      <h2>Sign Up</h2>
+      <form>
+          <!-- <label for="username">Username:</label> -->
+          <input type="text" id="username" name="username" placeholder="Your Name" required />
+
+          <!-- <label for="email">Email:</label> -->
+          <input type="email" id="email" name="email" placeholder="Your Email" required/>
+
+          <!-- <label for="password">Password:</label> -->
+          <input type="password" id="password" name="password" placeholder="Password"required />
+
+          <button type="submit" class = "submit">Submit</button>
+      </form>
+      <div class="access">
+        <h2>Access Quick</h2>
+        <button>Google</button>
+        <button>Linkedin</button>
+      </div>
+  </div>
+    <script src="{% static 'js/index.js' %}"></script>
+
+
+  </body>
+</html>
