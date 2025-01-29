@@ -35,10 +35,21 @@
             <ul>
               <li><a href="#header">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><button class="navbtn" id = "signupbtn">Login</button></li>
-            </ul>
+              <!-- <li><a href="#contact">Contact</a></li> -->
 
+              {% if user.is_authenticated %}
+              <li>{{ user.username }}</li>
+              <li><a href="{% url 'history' %}">History</a></li>
+              <li>
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="navbtn">Logout</button>
+                </form>
+              </li>
+              {% else %}
+              <li><button class="navbtn" id="signupbtn">Login</button></li>
+              {% endif %}
+            </ul>
           </div>
         </nav>
       </div>
@@ -66,22 +77,22 @@
         <div class="container2">
             <div class="row">
                 <div class="aboutleft">
-                    <img src="{%static 'images/user.png'%}">
+                    <img src="{% static 'images/user.png' %}">
                 </div>
                 <div class="aboutright">
-                    <h1 class = "red">About</h1>
+                    <h1 class="red">About</h1>
                     <p>Pracharead is a site that understands Newari Texts </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="contact">
+    <!-- <div id="contact">
       <div class="inside">
           <div class="table">
               <div class="col1">
-                  <h1 class = "red">Contact Us</h1>
-                  <p><i class="fa-solid fa-magnifying-glass"></i>pradyumnarajbhandari1@gmail.com</p>
+                  <h1 class="red">Contact Us</h1>
+                  <p><i class="fa-solid fa-magnifying-glass"></i>pracharead@gmail.com</p>
                   <p><i class="fa-solid fa-phone"></i>9808270609</p>
                   <div class="socials">
                       <i class="fa-brands fa-facebook"></i>
@@ -90,17 +101,17 @@
                   </div>
               </div>
               <div class="col2">
-                  <form method="POST" name = "submit-to-google-sheet">
-                      <input type="text" name = "Name" placeholder="Your Name" required>
-                      <input type="text" name = "Email" placeholder = "Your Email" required>
+                  <form method="POST" name="submit-to-google-sheet">
+                      <input type="text" name="Name" placeholder="Your Name" required>
+                      <input type="text" name="Email" placeholder="Your Email" required>
                       <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                      <button type = "submit" class = "btn">Submit</button>
+                      <button type="submit" class="btn">Submit</button>
                   </form>
               </div>
 
           </div>
       </div>
-  </div>
+  </div> -->
 
   </div>
 
@@ -137,11 +148,7 @@
 
           <button type="submit" class = "submit">Submit</button>
       </form>
-      <div class="access">
-        <h2>Access Quick</h2>
-        <button>Google</button>
-        <button>Linkedin</button>
-      </div>
+      <p>Already have an account? <a href="#" id="loginbtn">Login here</a>.</p>
   </div>
     <script src="{% static 'js/index.js' %}"></script>
 

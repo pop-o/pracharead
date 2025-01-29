@@ -52,6 +52,20 @@ startSlider(wordImages);
 showImage(characterImages, 0);
 startSlider(characterImages);
 
+function copyText(elementId) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const button = document.querySelector(`#${elementId}`).parentElement.querySelector('.copy-btn');
+        const originalText = button.innerText;
+        button.innerText = 'Copied!';
+        setTimeout(() => {
+            button.innerText = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text:', err);
+    });
+}
+
 document.getElementById('image-upload-word').addEventListener('change', function () {
     const fileInput = this.files[0];
     if (!isValidImage(fileInput)) {
@@ -152,6 +166,7 @@ function translateWord() {
     .then(data => {
         const outputElement = document.getElementById('word-output-text');
         outputElement.textContent = data.result;
+        document.querySelector('#word-output .copy-btn').style.display = 'block';
     })
     .catch(error => {
         console.error('Error:', error);
@@ -179,6 +194,7 @@ function translateCharacter() {
     .then(data => {
         const outputElement = document.getElementById('character-output-text');
         outputElement.textContent = data.result;
+        document.querySelector('#character-output .copy-btn').style.display = 'block';
     })
     .catch(error => {
         console.error('Error:', error);
@@ -201,6 +217,5 @@ function getCookie(name) {
 }
 
 document.getElementById("signupbtn").addEventListener("click", function () {
-    const signupCard = document.getElementById("signupCard");
-    signupCard.classList.toggle("hidden");
+    window.location.href = "/login/";
 });

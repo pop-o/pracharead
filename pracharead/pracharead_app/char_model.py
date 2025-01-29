@@ -7,7 +7,6 @@ import os
 import sys
 from django.conf import settings
 sys.stdout.reconfigure(encoding='utf-8')
-
 # CNN Model Definition
 class CNNModel(nn.Module):
     def __init__(self, num_classes=63):
@@ -24,7 +23,6 @@ class CNNModel(nn.Module):
         self.batch_norm = nn.BatchNorm2d(128)
         self.dropout = nn.Dropout(0.5)
         self.fc1 = nn.Linear(128 * 1 * 1, self.num_classes)
-
     def forward(self, x):
         x = F.relu(self.conv1(x))
         x = self.pool1(x)
@@ -39,7 +37,6 @@ class CNNModel(nn.Module):
         x = x.view(x.size(0), -1)
         x = self.fc1(x)
         return F.log_softmax(x, dim=1)
-
 # Load the trained model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = CNNModel(num_classes=63)
@@ -47,7 +44,6 @@ model_path = os.path.join(settings.STATICFILES_DIRS[0], 'file/char_model.pth')
 model.load_state_dict(torch.load(model_path, map_location=device))
 model.eval()
 model.to(device)
-
 # Transformations
 transform = transforms.Compose([
     transforms.Grayscale(num_output_channels=1),
@@ -55,7 +51,6 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5,), (0.5,))
 ])
-
 # Mapping dictionary
 pracha={
     0:['0x11450','guli'],
@@ -123,7 +118,6 @@ pracha={
     62:['0x11434','HA'],
 }
 
-
 def predict_image(image_path):
     image = Image.open(image_path)
     image = transform(image).unsqueeze(0).to(device)
@@ -136,7 +130,6 @@ def predict_image(image_path):
         if confidence < threshold:
             return None
         return predicted_class
-
 def match_char(output_class):
     if output_class is not None:
         unicode_value = pracha[output_class][0]

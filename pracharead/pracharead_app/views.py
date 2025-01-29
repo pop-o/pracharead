@@ -1,38 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ImageUploadForm
-from .model_utils import *
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from .models import UploadedImage
-import os
+from .forms import RegisterForm, LoginForm, ImageUploadForm
+from .model_utils import *
 from django.conf import settings
 from django.http import JsonResponse
+import os
+from .models import UploadedImage,OCRHistory
 
 def home(request): # Home page view
     return render(request, 'pracharead_app/index.html')
 
-def upload_image(request):
-    output = None
+def register(request):
     if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            uploaded_image = form.save()
-
-            # Update usage count
-            if request.user.is_authenticated:
-                profile = request.user.profile
-                profile.ocr_usage_count += 1
-                profile.save()
-            else:
-                request.session['ocr_usage_count'] = request.session.get('ocr_usage_count', 0) + 1
-
-            output = perform_word_ocr(uploaded_image.image.path)
+            user = form.save()
+            login(request, user)
+            return redirect('home')
     else:
-        form = ImageUploadForm()
+        form = RegisterForm()
+    return render(request, 'pracharead_app/register.html', {'form': form})
 
-    return render(request, 'pracharead_app/upload.html', {'form': form, 'output': output})
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = LoginForm()
+    return render(request, 'pracharead_app/login.html', {'form': form})
 
-
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html', {
+        'user': request.user,
+    })
 
 def perform_word_ocr_view(request):
     if request.method == 'POST' and request.FILES.get('image'):
@@ -41,14 +47,17 @@ def perform_word_ocr_view(request):
         with open(image_path, 'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
-        
-        result = perform_word_ocr(image_path)
-        if result=='𑑍':
-           return JsonResponse({'result': 'Blank Image'})
-        else:
-            return JsonResponse({'result': result})
-    return JsonResponse({'error': 'Invalid request'}, status=400)
 
+        result = perform_word_ocr(image_path)
+        extracted_text = result if result != '𑑍' else 'Blank Image'
+
+        # Save only if user is logged in
+        if request.user.is_authenticated:
+            OCRHistory.objects.create(user=request.user, image=image, extracted_text=extracted_text)
+
+        return JsonResponse({'result': extracted_text})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def perform_char_ocr_view(request):
     if request.method == 'POST' and request.FILES.get('image'):
@@ -57,18 +66,25 @@ def perform_char_ocr_view(request):
         with open(image_path, 'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
-        
-        unicode_char = perform_char_ocr(image_path)
-        result = unicode_char
+
+        result = perform_char_ocr(image_path)
+
+        # Save only if user is logged in
+        if request.user.is_authenticated:
+            OCRHistory.objects.create(user=request.user, image=image, extracted_text=result)
+
         return JsonResponse({'result': result})
+
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-@login_required
-def profile(request):
-    return render(request, 'accounts/profile.html', {
-        'user': request.user,
-    })
-    
-def ocr_result(request, image_id):
-    image_instance = get_object_or_404(UploadedImage, id=image_id)
-    return render(request, 'pracharead_app/ocr_result.html', {'ocr_result': image_instance.ocr_result})
+@login_required(login_url='login')
+def history(request):
+    ocr_history = OCRHistory.objects.filter(user=request.user)[:5]
+    return render(request, 'pracharead_app/history.html', {'ocr_history': ocr_history})
+
+
+def delete_all_history(request):
+    if request.method == "POST":
+        OCRHistory.objects.all().delete()
+        return JsonResponse({"success": True})
+    return JsonResponse({"error": "Invalid request"}, status=400)

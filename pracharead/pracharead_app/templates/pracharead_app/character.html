@@ -1,4 +1,4 @@
-{% load static %}
+{%load static%}
 <div class="contents" id="character">
     <div class="container2 flex">
         <div class="card">
@@ -15,10 +15,15 @@
             </div>
             <label class="uploadbtn" onclick="translateCharacter()">Translate</label>
 
-            <!-- Output element -->
+            <!-- Updated Output element with copy button -->
             <div id="character-output" class="output">
-                <h2>OCR Output:</h2>
-                <p id="character-output-text">No output yet.</p>
+                <h1>OCR Output:</h1>
+                <div class="output-container">
+                    <h3 id="character-output-text" style="text-align: center;">No output yet.</h3>
+                    <button class="copy-btn" onclick="copyText('character-output-text')" style="display: none;">
+                        Copy Text
+                    </button>
+                </div>
             </div>
         </div>
     </div>

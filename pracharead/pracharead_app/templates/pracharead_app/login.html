@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - PrachaRead</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&family=Sofadi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans+Newa&family=Noto+Serif+Devanagari:wght@100..900&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Newa', 'Arial', sans-serif;
+        }
+        
+    </style>
+    <script src="https://kit.fontawesome.com/c6a0cef992.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header flex">
+        <div class="logo">
+          <img src="{% static 'images/Logo.png' %}" alt="Logo" />
+        </div>
+        <nav>
+          <div class="navtext">
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'home' %}#about">About</a></li>
+              <!-- <li><a href="{% url 'home' %}#contact">Contact</a></li> -->
+              <!-- <li><button class="navbtn" id="loginbtn">Login</button></li> -->
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="card login-container">
+          <h2>Login</h2>
+          <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Login</button>
+          </form>
+          
+          <p>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="content">
+        <div class="notes">
+          <img src="{% static 'images/Logo.png'%}" alt="Logo" />
+          <p>Copyright &copy 2024 PrachaRead</p>
+          <div class="socials">
+            <div class="icons">
+              <a href="#" class="fa fa-facebook"></a>
+              <a href="#" class="fa fa-twitter"></a>
+              <a href="#" class="fa fa-instagram"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+  </body>
+</html>

@@ -1,0 +1,162 @@
+{% load static %}
+{% if not user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - PrachaRead</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&family=Sofadi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans+Newa&family=Noto+Serif+Devanagari:wght@100..900&family=Permanent+Marker&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Newa', 'Arial', sans-serif;
+        }
+        
+    </style>
+    <script src="https://kit.fontawesome.com/c6a0cef992.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header flex">
+        <div class="logo">
+          <img src="{% static 'images/Logo.png' %}" alt="Logo" />
+        </div>
+        <nav>
+          <div class="navtext">
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'home' %}#about">About</a></li>
+              <!-- <li><a href="{% url 'home' %}#contact">Contact</a></li> -->
+              <li><button class="navbtn" id="signupbtn">Login</button></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="card register-container">
+          <h1>Register Now</h1>
+          <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Username Field -->
+            <div class="form-field">
+              <label for="{{ form.username.id_for_label }}">Username</label>
+              <input
+                type="text"
+                name="{{ form.username.name }}"
+                id="{{ form.username.id_for_label }}"
+                value="{{ form.username.value|default_if_none:'' }}"
+                class="form-control"
+                placeholder="Enter your username"
+              />
+              {% if form.username.errors %}
+              <div class="error">
+                {{ form.username.errors }}
+              </div>
+              {% endif %}
+            </div>
+            
+            <!-- Email Field -->
+            <div class="form-field">
+              <label for="{{ form.email.id_for_label }}">Email</label>
+              <input
+                type="email"
+                name="{{ form.email.name }}"
+                id="{{ form.email.id_for_label }}"
+                value="{{ form.email.value|default_if_none:'' }}"
+                class="form-control"
+                placeholder="Enter your email"
+              />
+              {% if form.email.errors %}
+              <div class="error">
+                {{ form.email.errors }}
+              </div>
+              {% endif %}
+            </div>
+            
+            <!-- Password1 Field -->
+            <div class="form-field">
+              <label for="{{ form.password1.id_for_label }}">Password</label>
+              <input
+                type="password"
+                name="{{ form.password1.name }}"
+                id="{{ form.password1.id_for_label }}"
+                class="form-control"
+                placeholder="Enter your password"
+              />
+              {% if form.password1.errors %}
+              <div class="error">
+                {{ form.password1.errors }}
+              </div>
+              {% endif %}
+            </div>
+            
+            <!-- Password2 Field -->
+            <div class="form-field">
+              <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+              <input
+                type="password"
+                name="{{ form.password2.name }}"
+                id="{{ form.password2.id_for_label }}"
+                class="form-control"
+                placeholder="Confirm your password"
+              />
+              {% if form.password2.errors %}
+              <div class="error">
+                {{ form.password2.errors }}
+              </div>
+              {% endif %}
+            </div>
+            
+            <button type="submit" class="btn">
+              <i class="fa fa-user-plus"></i> Register
+            </button>
+          </form>
+          
+          <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="content">
+        <div class="notes">
+          <img src="{% static 'images/Logo.png'%}" alt="Logo" />
+          <p>Copyright &copy 2024 PrachaRead</p>
+          <div class="socials">
+            <div class="icons">
+              <a href="#" class="fa fa-facebook"></a>
+              <a href="#" class="fa fa-twitter"></a>
+              <a href="#" class="fa fa-instagram"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script >
+        document.getElementById("signupbtn").addEventListener("click", function () {
+    window.location.href = "/login/";
+});
+    </script>
+  </body>
+</html>
+{% else %}
+<script>
+    window.location.href = "/";
+</script>
+{% endif %}

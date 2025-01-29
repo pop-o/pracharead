@@ -15,10 +15,15 @@
             </div>
             <label class="uploadbtn" onclick="translateWord()">Translate</label>
             
-            <!-- Output element -->
+            <!-- Updated Output element with copy button -->
             <div id="word-output" class="output">
-                <h2>OCR Output:</h2>
-                <p id="word-output-text">No output yet.</p>
+                <h1>OCR Output:</h1>
+                <div class="output-container">
+                    <h3 id="word-output-text" style="text-align: center;">No output yet.</h3>
+                    <button class="copy-btn" onclick="copyText('word-output-text')" style="display: none;">
+                        Copy Text
+                    </button>
+                </div>
             </div>
         </div>
     </div>
